@@ -4,9 +4,23 @@ const objEle = {
   olLista: document.querySelector('#lista-tarefas'),
 };
 
-objEle.botaoAdiciona.addEventListener('click', () => {
-  const li = document.createElement('li');
-  li.innerHTML = objEle.inputAdiciona.value;
-  objEle.olLista.appendChild(li);
-  objEle.inputAdiciona.value = '';
-});
+const objFun = {
+  eventoAdicionaLista: function adiciona() {
+    objEle.botaoAdiciona.addEventListener('click', () => { // Evento adiciona
+      const li = document.createElement('li');
+      li.innerHTML = objEle.inputAdiciona.value;
+      objEle.olLista.appendChild(li);
+      objEle.inputAdiciona.value = '';
+    });
+  },
+  eventoLiCor: function eventoCor() {
+    objEle.olLista.addEventListener('click', (e) => {
+      e.target.style.backgroundColor = 'rgb(128,128,128)';
+    });
+  },
+};
+
+window.onload = () => {
+  objFun.eventoAdicionaLista();
+  objFun.eventoLiCor();
+};
