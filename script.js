@@ -15,7 +15,18 @@ const objFun = {
   },
   eventoLiCor: function eventoCor() {
     objEle.olLista.addEventListener('click', (e) => {
-      e.target.style.backgroundColor = 'rgb(128,128,128)';
+      const lista = document.querySelectorAll('li');
+      for (let i = 0; i < lista.length; i += 1) {
+        lista[i].id = '';
+      }
+      e.target.id = 'selected';
+      const antigoSele = document.querySelector('#selected');
+      if (e.target !== antigoSele) {
+        if (e.target !== antigoSele) {
+          e.target.id = 'selected';
+        }
+        antigoSele.id = '';
+      }
     });
   },
 };
