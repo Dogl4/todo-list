@@ -3,6 +3,7 @@ const objEle = { // Elementos fixos
   inputAdiciona: document.querySelector('#texto-tarefa'),
   olLista: document.querySelector('#lista-tarefas'),
   botaoApagaAll: document.querySelector('#apaga-tudo'),
+  botaoDeleteCheck: document.querySelector('#remover-finalizados'),
 };
 
 const objFun = { // Funções
@@ -40,11 +41,22 @@ const objFun = { // Funções
       objEle.olLista.innerHTML = '';
     });
   },
+  apagaRiscados: function deleteAllCheck() { // Evento apaga os checks
+    objEle.botaoDeleteCheck.addEventListener('click', () => {
+      const checks = document.getElementsByClassName('completed');
+      while (checks.length > 0) {
+        checks[0].parentElement.removeChild(checks[0]); // Função Milagroza, Salve Grod! (acessa 1° filho, o pai, função remove(1° filho));
+      }
+    });
+  },
 };
+
+// objEle.olLista.removeChild(objEle.olLista.firstChild);
 
 window.onload = () => {
   objFun.eventoAdicionaLista();
   objFun.eventoLiCor();
   objFun.riscaLista();
   objFun.apagaTudo();
+  objFun.apagaRiscados();
 };
