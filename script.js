@@ -5,6 +5,9 @@ const objEle = { // Objeto Elementos globais (fixos).
   botaoApagaAll: document.querySelector('#apaga-tudo'),
   botaoDeleteCheck: document.querySelector('#remover-finalizados'),
   botaoSalvaLista: document.querySelector('#salvar-tarefas'),
+  botaoCima: document.querySelector('#mover-cima'),
+  botaoBaixo: document.querySelector('#mover-baixo'),
+  botaoDel: document.querySelector('#remover-selecionado'),
 };
 
 const objFun = { // Objeto Funções
@@ -58,6 +61,24 @@ const objFun = { // Objeto Funções
   recuperaTarefas: function voltaLista() { //  Recupera lista salva
     objEle.olLista.innerHTML = localStorage.getItem(1);
   },
+  moveCima: function cima() { // Move Cima
+    objEle.botaoCima.addEventListener('click', () => {
+      const itemSelecionado = document.querySelector('#selected');
+      for (let i = 0; i < objEle.olLista.children; i += 1) {
+        if (objEle.olLista.children[i] === itemSelecionado) {
+          objEle.olLista.children[i].insertBefore(itemSelecionado, objEle.olLista.children[i - 1]);
+        }
+      }
+    });
+  }, // Referencias <https://www.w3schools.com/jsref/met_node_insertbefore.asp | https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore>
+  deletaSelecionado: function deletaSelecionadoUnico() { // Evento item selecionado deleta
+    objEle.botaoDel.addEventListener('click', () => {
+      const del = document.getElementById('selected');
+      if (del !== null) {
+        del.parentElement.removeChild(document.getElementById('selected'));
+      }
+    });
+  },
 };
 
 // objEle.olLista.removeChild(objEle.olLista.firstChild);
@@ -70,4 +91,5 @@ window.onload = () => {
   objFun.apagaRiscados();
   objFun.salvarTarefas();
   objFun.recuperaTarefas();
+  objFun.deletaSelecionado();
 };
