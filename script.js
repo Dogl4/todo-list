@@ -62,18 +62,21 @@ const objFun = { // Objeto Funções
     objEle.olLista.innerHTML = localStorage.getItem(1);
   },
   moveCima: function cima() { // Move Cima
-    const item = document.querySelector('#selected');
-    const list = document.querySelectorAll('li');
     objEle.botaoCima.addEventListener('click', () => {
-      if (item !== undefined && item !== list[0]) {
-        for (let i = 0; i < list.length; i += 1) {
-          if (list[i] === item) {
-            objEle.olLista.insertBefore(item, objEle.previousSibling);
-          }
-        }
+      const itemSelecionado = document.querySelector('#selected');
+      if (itemSelecionado && itemSelecionado.previousSibling) {
+        objEle.olLista.insertBefore(itemSelecionado, itemSelecionado.previousSibling); // ol.troca(nóAgora,intem.nóAnterior)
       }
     });
   }, // Referencias <https://www.w3schools.com/jsref/met_node_insertbefore.asp | https://developer.mozilla.org/en-US/docs/Web/API/Node/insertBefore>
+  moveBaixo: function baixo() { // Move Baixo
+    objEle.botaoBaixo.addEventListener('click', () => {
+      const itemSelecionado = document.querySelector('#selected');
+      if (itemSelecionado && itemSelecionado.nextSibling) {
+        objEle.olLista.insertBefore(itemSelecionado.nextSibling, itemSelecionado); // ol.troca(intem.nextNó,nóAgora)
+      }
+    });
+  },
   deletaSelecionado: function deletaSelecionadoUnico() { // Evento item selecionado deleta
     objEle.botaoDel.addEventListener('click', () => {
       const del = document.getElementById('selected');
@@ -96,4 +99,5 @@ window.onload = () => {
   objFun.recuperaTarefas();
   objFun.deletaSelecionado();
   objFun.moveCima();
+  objFun.moveBaixo();
 };
