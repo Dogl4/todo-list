@@ -62,11 +62,14 @@ const objFun = { // Objeto Funções
     objEle.olLista.innerHTML = localStorage.getItem(1);
   },
   moveCima: function cima() { // Move Cima
+    const item = document.querySelector('#selected');
+    const list = document.querySelectorAll('li');
     objEle.botaoCima.addEventListener('click', () => {
-      const itemSelecionado = document.querySelector('#selected');
-      for (let i = 0; i < objEle.olLista.children; i += 1) {
-        if (objEle.olLista.children[i] === itemSelecionado) {
-          objEle.olLista.children[i].insertBefore(itemSelecionado, objEle.olLista.children[i - 1]);
+      if (item !== undefined && item !== list[0]) {
+        for (let i = 0; i < list.length; i += 1) {
+          if (list[i] === item) {
+            objEle.olLista.insertBefore(item, objEle.previousSibling);
+          }
         }
       }
     });
@@ -92,4 +95,5 @@ window.onload = () => {
   objFun.salvarTarefas();
   objFun.recuperaTarefas();
   objFun.deletaSelecionado();
+  objFun.moveCima();
 };
