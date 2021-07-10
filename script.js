@@ -1,12 +1,13 @@
-const objEle = { // Elementos fixos
+const objEle = { // Objeto Elementos globais (fixos).
   botaoAdiciona: document.querySelector('#criar-tarefa'),
   inputAdiciona: document.querySelector('#texto-tarefa'),
   olLista: document.querySelector('#lista-tarefas'),
   botaoApagaAll: document.querySelector('#apaga-tudo'),
   botaoDeleteCheck: document.querySelector('#remover-finalizados'),
+  botaoSalvaLista: document.querySelector('#salvar-tarefas'),
 };
 
-const objFun = { // Funções
+const objFun = { // Objeto Funções
   eventoAdicionaLista: function adiciona() { // Evento adiciona li
     objEle.botaoAdiciona.addEventListener('click', () => {
       const li = document.createElement('li');
@@ -49,6 +50,14 @@ const objFun = { // Funções
       }
     });
   },
+  salvarTarefas: function salvaLista() { // Salva lista localStorage(chave: value);
+    objEle.botaoSalvaLista.addEventListener('click', () => {
+      localStorage.setItem(1, objEle.olLista.innerHTML);
+    });
+  },
+  recuperaTarefas: function voltaLista() { //  Recupera lista salva
+    objEle.olLista.innerHTML = localStorage.getItem(1);
+  },
 };
 
 // objEle.olLista.removeChild(objEle.olLista.firstChild);
@@ -59,4 +68,6 @@ window.onload = () => {
   objFun.riscaLista();
   objFun.apagaTudo();
   objFun.apagaRiscados();
+  objFun.salvarTarefas();
+  objFun.recuperaTarefas();
 };
